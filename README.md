@@ -22,7 +22,7 @@ The Astro app is configured with the Netlify adapter for server-rendered routes 
 
 ## Local
 
-Use Node `22.12.0` or newer.
+Use Node `22.13.0` or newer.
 
 ```bash
 npm install
