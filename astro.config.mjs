@@ -15,6 +15,12 @@ export default defineConfig({
     }),
   ],
   vite: {
+    build: {
+      target: 'es2022',
+    },
+    esbuild: {
+      target: 'es2022',
+    },
     server: {
       fs: {
         allow: [fileURLToPath(rootDir)],

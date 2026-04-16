@@ -11,9 +11,9 @@
     "node": ">=22.13.0"
   },
   "dependencies": {
-    "@astrojs/netlify": "latest",
-    "@astrojs/vue": "^6.0.1",
-    "astro": "^6.1.6",
+    "@astrojs/netlify": "7.0.7",
+    "@astrojs/vue": "6.0.1",
+    "astro": "6.1.6",
     "pinia": "^3.0.4",
     "sass": "^1.99.0",
     "vue": "^3.5.32",
