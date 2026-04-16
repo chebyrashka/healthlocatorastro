@@ -11,12 +11,15 @@
     "node": ">=22.13.0"
   },
   "dependencies": {
-    "@astrojs/netlify": "7.0.7",
-    "@astrojs/vue": "6.0.1",
-    "astro": "6.1.7",
+    "@astrojs/netlify": "6.5.13",
+    "@astrojs/vue": "5.1.4",
+    "astro": "5.18.1",
     "pinia": "^3.0.4",
     "sass": "^1.99.0",
     "vue": "^3.5.32",
     "zipcodes": "^8.0.0"
+  },
+  "overrides": {
+    "@netlify/vite-plugin": "2.6.1"
   }
 }
