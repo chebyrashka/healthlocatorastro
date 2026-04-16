@@ -1,0 +1,91 @@
+{
+    "dateUpdated": "Updated February 2026",
+    "sections": [
+        {
+            "title": "About the tool",
+            "questions": [
+            {
+                "question": "What is the purpose of HealthLocator?",
+                "answer": "<p>HealthLocator is a user-friendly, searchable database with hospital quality scores for more than 5,000 United States (US) hospitals<sup>1</sup>. Scores are based on publicly available and independently endorsed hospital quality outcomes measures with data from the Centers for Medicare and Medicaid Services (CMS). HealthLocator combines widely reported hospital quality measures such as 30-day readmissions and mortality, patient experience, and patient safety, with new measures and methodologies developed by Mayo Clinic experts to measure medical and surgical specialty care. Each hospital’s score reflects performance across three domains: quality outcomes, patient experience, and patient safety.</p>"
+            },
+            {
+                "question": "What is the HealthLocator (Overall Hospital) Score?",
+                "answer": "<p>The HealthLocator score is the aggregate of three individual percentile scores, each measuring a unique and critical domain of hospital performance: quality outcomes, patient experience, and patient safety<sup>1</sup>.</p>"
+            },
+            {
+                "question": "What is Reliable Excellence?",
+                "answer": "<p>Reliable Excellence is a subset of hospitals that provide dependable, high-quality care in all domains of quality, regardless of the measure-weighting methodology used<sup>2</sup>. The z-scores for all 46 measures in the CMS Star rating are combined and the CMS Summary Score is simulated 100,000 times using random weights for all 46 measures. Any hospital that scores at or above the 90th percentile CMS Summary Score in a majority (i.e. 50,000 or more) of simulations achieves the Reliable Excellence Indicator.</p>"
+            },
+            {
+                "question": "What data and data periods are displayed on HealthLocator?",
+                "answer": "<p>Analysts will update data for the following measure domains:</p><h3>Experience, using data from the February 2026 CMS Care Compare update</h3><p>The Experience score displayed on HealthLocator is the national percentile of a hospital’s October 2025 HCAHPS Summary Score.</p><p>The individual Experience measures displayed on HealthLocator include:</p><ul><li>Communication with Nurses (H-COMP-1)</li><li>Communication with Doctors (H-COMP-2)</li><li>Communication About Medicines (H-COMP-5)</li><li>Discharge Information (H-COMP-6)</li><li>Cleanliness and Quietness of Hospital Environment (H-CLEAN-HSP / H-QUIET-HSP)</li><li>Hospital Rating and Recommend the Hospital (H-HSP-RATING / H-RECMND)</li></ul><h3>Quality, using data from the July 2025 CMS Overall Hospital Star Rating</h3><p>The Quality score displayed on HealthLocator is the national percentile of a hospital’s July 2025 CMS Overall Hospital Star Rating Summary Score.</p><p>The individual Quality measures displayed on HealthLocator include:</p><ul><li>Mortality (using the 2025 CMS Overall Hospital mortality domain z-score)</li><li>Safety of Care (using the 2025 CMS Overall Hospital safety domain z-score)</li><li>Readmission (using the 2025 CMS Overall Hospital readmission domain z-score)</li><li>Patient Experience (using the 2025 CMS Overall Hospital patient experience domain z-score)</li><li>Timely &amp; Effective Care (using the 2025 CMS Overall Hospital timely and effective domain z-score)</li></ul><h3>Safety, using data from the February 2026 CMS Care Compare update</h3><p>The Safety score displayed on HealthLocator is a percentile score derived from a summary of 6 individual measure z-scores, with weight distributed equally across Patient Safety Indicators (PSIs, 50% total) and Hospital-Acquired Infections (HAIs, 50% total).</p><p>The individual Safety score measures displayed on HealthLocator include:</p><ul><li>Central Line-associated Bloodstream Infections (HAI-1 CLABSI) &ndash; 12.5% weight</li><li>Catheter-Associated Urinary Tract Infections (HAI-2 CAUTI) &ndash; 12.5% weight</li><li>C. diff Intestinal Infections [HAI-6 Clostridiodies difficile (C. diff)] &ndash; 25% weight</li><li>Patient Safety and Adverse Events (CMS Medicare PSI-90 Composite) &ndash; 40% weight</li><li>Pressure Ulcer Rate (PSI-03 Pressure Ulcer) &ndash; 5% weight</li><li>In-Hospital Fall-Associated Fracture Rate (PSI-08 Falls) &ndash; 5% weight</li></ul><p>The weight of each individual HAI measure was calculated to be roughly proportionate to the frequency of each HAI nationally. HAIs 1,2, and 6 were selected as the three most prevalent HAIs, allowing for the calculation of patient safety scores for the maximum number of hospitals as compared to the selection of all six Care Compare reported HAIs. Although falls (PSI-08) and pressure ulcers (PSI-03) are included in the PSI-90 composite, HealthLocator further emphasizes the importance of preventing falls and pressure ulcers by giving these two individual PSIs (PSI-08 and PSI-03) 5% weight each.</p><h3>Hospital Average Score</h3><p>The hospital average score is the mean of the 3 scores (Experience, Quality, Safety).</p><h3>HealthLocator (Overall Hospital) Score</h3><p>The HealthLocator (Overall Hospital) Score is the national percentile of the hospital average score.</p>"
+            }
+            ]
+        },
+        {
+            "title": "Data availability and anticipated update schedule",
+            "questions": [
+            {
+                "question": "What data source is used and how often are the Experience measures updated?",
+                "answer": "<p>CMS Care Compare Snapshot:</p><ul><li>A public-facing data refresh of the Care Compare website (previously Hospital Compare), where CMS updates hospital performance data.</li><li>CMS publicly refreshes this data approximately every January, April, July, and October.</li><li>HealthLocator analysts assess hospital performance and outcomes across multiple domains (Complications and Deaths, Patient Experience HCAHPS, HAIs, etc.).</li><li><a href=\"https://data.cms.gov/provider-data/archived-data/hospitals\" target=\"_blank\">https://data.cms.gov/provider-data/archived-data/hospitals</a></li></ul>"
+
+            },
+            {
+                "question": "What data source is used and how often are the Quality measures updated?",
+                "answer": "<p>CMS Star SAS Pack:</p><ul><li>Downloadable file provided by CMS that includes the data used to calculate Hospital Star Ratings (e.g., measures, performance rates, domain scores).</li><li>Anticipated release (usually July) every year when CMS publishes the Star Ratings SAS Pack.</li><li>Analysts use this file to replicate and understand CMS's star rating methodology to calculate the Quality Domain. </li><li><a href=\"https://qualitynet.cms.gov/inpatient/public-reporting/overall-ratings/sas\" target=\"_blank\">https://qualitynet.cms.gov/inpatient/public-reporting/overall-ratings/sas</a></li></ul>"
+            },
+            {
+                "question": "What data source is used and how often are the Safety measures updated?",
+                "answer": "<p>CMS Care Compare Snapshot:</p><ul><li>A public-facing data refresh of the Care Compare website (previously Hospital Compare), where CMS updates hospital performance data.</li><li>CMS publicly refreshes this data approximately every January, April, July, and October.</li><li>HealthLocator analysts assess hospital performance and outcomes across multiple domains (Complications and Deaths, Patient Experience HCAHPS, HAIs, etc.).</li><li><a href=\"https://data.cms.gov/provider-data/archived-data/hospitals\" target=\"_blank\">https://data.cms.gov/provider-data/archived-data/hospitals</a></li></ul>"
+            },
+            {
+                "question": "Are there any other data sources used?",
+                "answer": "<p>Yes, HealthLocator also uses the CMS Quarterly Claims data:</p><ul><li>CMS releases quarterly inpatient/outpatient claims data for quality reporting (e.g., used in Star Ratings, Hospital Compare, etc.).</li><li>Quarterly FFS claims files are available on an approximate 5.5-month lag. For example, Q1 2025 Medicare FFS files will be available in mid-August 2025 at approximately 93% claims maturity. The chart below provides a timeline for the release of quarterly data:<ul><li>QTR 3 2024: July–September (released mid-February)</li><li>QTR 4 2024: October–December (released mid-May)</li><li>QTR 1 2025: January-March (released mid-August)</li><li>QTR 2 2025: April–June (released mid-November)</li><li>QTR 3 2025: July–September (released mid-February)</li><li>QTR 4 2025: October–December (released mid-May)</li><li>QTR 1 2026: January-March (released mid-August)</li></ul></li><li>HealthLocator analysts use these data sets to track trends, benchmark performance, and for reporting.</li><li><a href=\"https://www.cms.gov/data-research/files-for-order/limited-data-set-lds-files\" target=\"_blank\">https://www.cms.gov/data-research/files-for-order/limited-data-set-lds-files</a></li></ul>"
+            }
+            ]
+        },
+        {
+            "title": "Methodology",
+            "questions": [
+            {
+                "question": "Our hospital’s bed size differs from what’s displayed. Could you clarify where bed size information comes from, which hospitals we’re being benchmarked against, and whether bed size affects the HealthLocator scores?",
+                "answer": "<p>Bed size is provided for informational purposes to help patients and is not used in any score calculations. Bed size data is based on each hospital’s AHA ID and total beds reported in the 2024 AHA survey. Bed size is updated annually using the most recent AHA survey<sup>3</sup>.</p>"
+            },
+            {
+                "question": "Does the HealthLocator model take social determinants of health (SDOH) into consideration?",
+                "answer": "<p>Not explicitly. However, our Reliable Excellence, Patient Safety, and HealthLocator scores are unique among hospital ratings because they are not statistically significantly associated with hospital bed size. This means that small rural hospitals and large urban hospitals have an equal chance of achieving a good HealthLocator score, Patient Safety score, or Reliable Excellence, unlike the CMS Star ratings which are heavily biased in favor of large hospitals and HCAHPS Star ratings which tend to be biased towards small hospitals.</p>"
+            },
+            {
+                "question": "Why do some hospitals not receive a HealthLocator Score?",
+                "answer": "<p>Hospitals must have data publicly reported on CMS Care Compare in order for us to calculate HealthLocator scores. For instance, if data is missing for measures on Care Compare within the Patient Safety domain such as HAI-2 or PSI-03, a Patient Safety Score is unable to be calculated.</p>"
+            },
+            {
+                "question": "Do VA and Children’s Hospitals receive a HealthLocator Score?",
+                "answer": "<p>VA and Children’s hospitals generally do not receive scores for many measures on CMS Care Compare, so most HealthLocator scores for VA or Children’s hospitals are unable to be calculated.</p>"
+            },
+            {
+                "question": "What if quality measures that are important to my hospital are not included in any of these scores?",
+                "answer": "<p>We plan to continually refine HealthLocator based on user feedback, with future updates focusing on personalization, outpatient and long-term care quality measures, expanded data sources, and broader stakeholder input via an external advisory board.</p>"
+            }
+            ]
+        },
+        {
+            "title": "Resources",
+            "questions": [
+            {
+                "question": "Where can I read further methodology details including peer-reviewed HealthLocator publications?",
+                "answer": "<ol><li><a href=\"https://catalyst.nejm.org/doi/full/10.1056/CAT.25.0296\" target=\"_blank\">https://catalyst.nejm.org/doi/full/10.1056/CAT.25.0296</a></li><li><a href=\"https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2836017\" target=\"_blank\">https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2836017</a></li><li><a href=\"https://www.aha.org/american-hospital-association-annual-survey\" target=\"_blank\">https://www.aha.org/american-hospital-association-annual-survey</a></li></ol><h3>Supplemental Resource</strong></h3><ul><li><a href=\"https://journals.lww.com/ajmqonline/abstract/2022/09000/a_learning_health_system_approach_to_hospital.9.aspx\" target=\"_blank\">https://journals.lww.com/ajmqonline/abstract/2022/09000/a_learning_health_system_approach_to_hospital.9.aspx</a></li></ul>"
+
+            },
+            {
+                "question": "Where can I submit questions about HealthLocator?",
+                "answer": "<p><a href=\"mailto:info@healthlocator.org\">info@healthlocator.org</a></p>"
+            },
+            {
+                "question": "What if I want to see what my hospital’s HealthLocator score will be with more recent data than what is publicly reported?",
+                "answer": "<p>Stay tuned, a “What If” calculator is coming. You’ll be able to input newer internal data to estimate the impact of your improvement on HealthLocator scores.</p>"
+            }
+            ]
+        }
+    ]
+}

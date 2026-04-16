@@ -1,0 +1,45 @@
+[
+    {"categories":  [
+        { "id": "heart", "label": "Heart" },
+        { "id": "kidney", "label": "Kidney" },
+        { "id": "cancer", "label": "Cancer" },
+        { "id": "lung", "label": "Lung" },
+        { "id": "diabetes", "label": "Diabetes" },
+        { "id": "gi", "label": "Gastrointestinal (GI)" },
+        { "id": "spine", "label": "Spine" },
+        { "id": "neurology", "label": "Neurology" },
+        { "id": "orthopedics", "label": "Orthopedics" }
+    ]},
+    {"specialties": [
+        { "label": "Blood cancer", "mapto": "blood", "category": "cancer", "hv": true, "lm": true },
+        { "label": "Colon cancer surgery", "mapto": "colcancer", "category": "cancer", "hv": true, "lm": true },
+        { "label": "Lung cancer surgery", "mapto": "lungcancer", "category": "cancer", "hv": true, "lm": true },
+        { "label": "Ovarian and endometrial cancer surgery", "mapto": "gyn", "category": "cancer", "hv": true, "lm": true },
+        { "label": "Prostate cancer surgery", "mapto": "prostate", "category": "cancer", "hv": true, "lm": true },
+
+        { "label": "Diabetes", "mapto": "dm", "category": "diabetes", "hv": true, "lm": true },
+
+        { "label": "Colonoscopy", "mapto": "colonoscopy", "category": "gi", "hv": true, "lm": false, "isNew": true },
+        { "label": "GI endoscopy", "mapto": "gi_endo", "category": "gi", "hv": true, "lm": false, "isNew": true },
+
+        { "label": "Abdominal aortic aneurysm", "mapto": "aaa", "category": "heart", "hv": true, "lm": true },
+        { "label": "Cardiac catheter procedures", "mapto": "cardcath", "category": "heart", "hv": true, "lm": false, "isNew": true },
+        { "label": "Heart attack", "mapto": "ami", "category": "heart", "hv": true, "lm": true },
+        { "label": "Heart bypass surgery", "mapto": "cabg", "category": "heart", "hv": true, "lm": true },
+        { "label": "Heart failure", "mapto": "chf", "category": "heart", "hv": true, "lm": true },
+        { "label": "Heart valve replacement", "mapto": "avrtavr", "category": "heart", "hv": true, "lm": true },
+        { "label": "Pacemaker procedures", "mapto": "pace", "category": "heart", "hv": true, "lm": false, "isNew": true },
+
+        { "label": "Acute kidney failure", "mapto": "akf", "category": "kidney", "hv": true, "lm": true },
+
+        { "label": "Chronic obstructive pulmonary disease", "mapto": "copd", "category": "lung", "hv": true, "lm": true },
+        { "label": "Pneumonia", "mapto": "pna", "category": "lung", "hv": true, "lm": true },
+        
+        { "label": "Stroke", "mapto": "stk", "category": "neurology", "hv": true, "lm": true },
+
+        { "label": "Hip replacement", "mapto": "hip_rep", "category": "orthopedics", "hv": true, "lm": false, "isNew": true },
+        { "label": "Knee replacement", "mapto": "knee_rep", "category": "orthopedics", "hv": true, "lm": false, "isNew": true },
+
+        { "label": "Spinal fusion surgery", "mapto": "spinal", "category": "spine", "hv": true, "lm": true }
+    ]}
+]

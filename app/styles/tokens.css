@@ -1,0 +1,71 @@
+:root {
+
+    --color-white: #FFFFFF;
+    --color-green--1: #008A19;
+    --color-green--2: #007328;
+    --color-green-1: #01AA37;
+    --color-green-2: #8AE584;
+    --color-green-3: #B1F8B5;
+    --color-green-4: #D4FDD7;
+
+    --color-blue--4: #0E102F;
+    --color-blue--3: #00196A;
+    --color-blue--2: #3B0B9B;
+    --color-blue--1: #5562FC;
+    --color-blue-3: #DAF5FE;
+    --color-blue-2: #A4E6FB;
+    --color-blue-1: #9493FC;
+    --color-red--1: #E00F63;
+    --color-red-1: #F57;
+    --color-red-3: #FCE1EA;
+    --color-teal--1: #006577;
+    --color-teal--2: #006577;
+    --color-teal-1: #007A99;
+    --color-teal-2: #27BACE;
+    --color-teal-3: #46D8D1;
+    --color-teal-4: #BEF2F0;
+
+
+
+
+
+    --color-logo: var(--color-green-2);
+    --color-background: var(--color-blue--2);
+    --color-text: var(--color-blue--4);
+    --color-text-invert: var(--color-white);
+    --color-action: var(--color-blue--1);
+
+    --color-focus: var(--color-blue--4);
+    --color-focus-background: var(--color-green-2);   
+
+    --color-error: var(--color-red--1);
+
+    --font-literata: "Literata", serif;
+    --font-nunito: "Nunito", sans-serif;
+
+    --font-sans: var(--font-nunito);
+    --font-serif: var(--font-literata);
+
+    --base: 8px;
+
+
+
+    --gradient-green: linear-gradient(90deg, #009F4D -1.05%, #50C476 102.1%);
+    --gradient-yellow: linear-gradient(90deg, #FFA40D -1.05%, #FFD76B 102.1%);
+    --gradient-red: linear-gradient(90deg, #EE3C49 -2.47%, #F86467 101.77%);
+    --gradient-gray: linear-gradient(90deg, #BDBDBD 0%, #E3E3E3 100%);
+
+    --gradient-greenblue: linear-gradient(90deg, #50C476 -1.05%, #64CCC9 102.1%);
+    --gradient-loading-blue: linear-gradient(90deg, #64CCC9 -1.05%, #56C6F6 102.1%);
+
+    --gradient-green-icon: linear-gradient(135deg, #50C476 0%, #64CCC9 100%);
+    --gradient-brightblue-icon: linear-gradient(135deg, #64CCC9 0%, #56C6F6 100%);
+    --gradient-pink-icon: linear-gradient(135deg, #F86467 0%, #D040AF 100%);
+    --gradient-purple-icon: linear-gradient(135deg, #000068 0%, #D040AF 100%);
+    --gradient-bluemagenta-icon: linear-gradient(135deg, #56C6F6 0%, #D040AF 100%);
+
+
+    --gradient-success: linear-gradient(90deg, #28B262 0%, #009F4D 100%);
+    --gradient-blue: linear-gradient(90deg, #64CCC9 -1.05%, #56C6F6 102.1%);
+
+}

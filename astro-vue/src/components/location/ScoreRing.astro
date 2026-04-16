@@ -1,0 +1,122 @@
+---
+import { rankText, scoreLevel } from '../../lib/location-detail.js';
+
+const {
+  score,
+  label = 'Overall',
+  size = 'large',
+} = Astro.props;
+
+const numericScore = Number(score);
+const hasScore = Number.isFinite(numericScore) && numericScore > 0;
+const displayScore = hasScore ? Math.round(numericScore) : 0;
+const level = scoreLevel(numericScore);
+const ringStyle = `--score:${Math.max(0, Math.min(100, displayScore))}`;
+---
+
+<div class="score-ring" data-level={level} data-size={size} style={ringStyle}>
+  <figure aria-hidden="true">
+    <span></span>
+  </figure>
+
+  {hasScore ? (
+    <div class="score-ring__text">
+      <p>Better than</p>
+      <strong>{displayScore}<span>%</span></strong>
+      <small>{rankText(displayScore)}</small>
+    </div>
+  ) : (
+    <div class="score-ring__text" data-missing="true">
+      <p>{label} score unavailable</p>
+    </div>
+  )}
+</div>
+
+<style>
+.score-ring {
+  --ring-color: var(--color-green--1);
+  --ring-track: var(--color-blue-3);
+  --ring-size: 10rem;
+
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border-radius: 50%;
+}
+
+.score-ring[data-size='small'] {
+  --ring-size: 7.5rem;
+}
+
+.score-ring[data-level='mid'] {
+  --ring-color: var(--color-teal--1);
+}
+
+.score-ring[data-level='low'],
+.score-ring[data-level='missing'] {
+  --ring-color: var(--color-red--1);
+}
+
+figure,
+figure::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+figure {
+  background:
+    radial-gradient(circle at center, var(--color-white) 56%, transparent 57%),
+    conic-gradient(var(--ring-color) calc(var(--score) * 1%), var(--ring-track) 0);
+}
+
+figure::before {
+  content: '';
+  border: 1px solid rgba(14, 16, 47, 0.08);
+}
+
+.score-ring__text {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.15rem;
+  max-width: 6.5rem;
+  text-align: center;
+}
+
+p {
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: color-mix(in srgb, var(--color-text) 72%, white);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+strong {
+  color: var(--color-blue--4);
+  font-family: var(--font-literata);
+  font-size: 2.35rem;
+  font-weight: 700;
+  line-height: 0.95;
+}
+
+strong span {
+  font-size: 1rem;
+}
+
+small {
+  color: var(--ring-color);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+[data-missing='true'] p {
+  color: var(--color-red--1);
+  text-transform: none;
+  letter-spacing: 0;
+}
+</style>

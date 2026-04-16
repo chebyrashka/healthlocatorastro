@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BedsSection from '../../components/location/BedsSection.astro';
+import LocationHero from '../../components/location/LocationHero.astro';
+import MetricSection from '../../components/location/MetricSection.astro';
+import OverallScore from '../../components/location/OverallScore.astro';
+import ReliableExcellence from '../../components/location/ReliableExcellence.astro';
+import { getBedBuckets, getLocationById, getNationalData } from '../../lib/site-data.js';
+import {
+  buildLocationMeta,
+  getGoogleMapsUrl,
+  metricSections,
+  summaryScores,
+} from '../../lib/location-detail.js';
+
+const { id } = Astro.params;
+const location = await getLocationById(id);
+
+if (!location) {
+  return Astro.redirect('/search');
+}
+
+const [national, bedBuckets] = await Promise.all([getNationalData(), getBedBuckets()]);
+const meta = buildLocationMeta(id, location);
+const mapsUrl = getGoogleMapsUrl(location);
+const scores = summaryScores(location);
+const sections = metricSections(location, national);
+const safeSchema = JSON.stringify(meta.schema).replace(/</g, '\\u003c');
+---
+
+<BaseLayout title={meta.title} description={meta.description}>
+  <script type="application/ld+json" set:html={safeSchema}></script>
+
+  <article class="location-page">
+    <LocationHero location={location} mapsUrl={mapsUrl} />
+    <OverallScore location={location} scores={scores} />
+    {Number(location.excellence) === 1 && <ReliableExcellence />}
+    {sections.map((section, index) => <MetricSection section={section} index={index} />)}
+    <BedsSection beds={location.beds} buckets={bedBuckets} />
+  </article>
+</BaseLayout>
+
+<style>
+.location-page {
+  background: white;
+}
+</style>

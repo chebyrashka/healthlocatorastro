@@ -1,0 +1,19 @@
+[{
+    "pe_comp1_nat_mean": { "value": 3.4 },
+    "pe_comp2_nat_mean": { "value": 3.13 },
+    "pe_comp5_nat_mean": { "value": 2.61 },
+    "pe_comp6_nat_mean": { "value": 3.33 },
+    "pe_clean_quiet_nat_mean": { "value": 3.23 },
+    "pe_hsp_rec_nat_mean": { "value": 3.46 },
+    "ps_psi03_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "ps_psi08_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "ps_psi90_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "ps_hai1_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "ps_hai2_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "ps_hai6_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "cms_pe_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "cms_r_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "cms_m_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "cms_s_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 },
+    "cms_p_nat_mean": { "value": 0, "rangeLow": -3, "rangeHigh": 3 }
+}]

@@ -1,0 +1,132 @@
+---
+import MetricCard from './MetricCard.astro';
+import ScoreRing from './ScoreRing.astro';
+
+const { section, index = 0 } = Astro.props;
+const sectionClass = index % 2 === 1 ? 'metric-section metric-section--tinted' : 'metric-section';
+---
+
+<section class={sectionClass} id={section.id}>
+  <div class="metric-section__inner">
+    <article class="metric-section__header">
+      <div class="metric-section__copy">
+        <figure>
+          <img src={`/icons/icon-${section.icon}.svg`} alt="" loading="lazy" />
+        </figure>
+        <p class="eyebrow">{section.scope}</p>
+        <h2>{section.title}</h2>
+        <p>{section.subtitle}</p>
+      </div>
+
+      <ScoreRing score={section.score} label={section.scope} />
+
+      <p class="metric-section__source" set:html={`<strong>Source:</strong> ${section.sourceHtml}`} />
+    </article>
+
+    <div class="metric-section__grid">
+      {section.metrics.map((metric, metricIndex) => (
+        <MetricCard metric={metric} number={metricIndex + 1} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.metric-section {
+  padding: 3.5rem 0;
+}
+
+.metric-section--tinted {
+  background: var(--color-blue-3);
+}
+
+.metric-section__inner {
+  width: min(calc(100% - 2rem), 888px);
+  margin: 0 auto;
+}
+
+.metric-section__header {
+  display: grid;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+.metric-section__copy {
+  display: grid;
+  gap: 0.55rem;
+}
+
+figure {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.45rem;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.eyebrow {
+  color: var(--color-blue--3);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: var(--color-text);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.metric-section__copy p:not(.eyebrow) {
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  font-size: 1.08rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.metric-section__source {
+  max-width: 42rem;
+  color: color-mix(in srgb, var(--color-text) 80%, white);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.metric-section__source :global(a) {
+  color: var(--color-blue--1);
+  text-decoration: underline 1px;
+  text-decoration-color: color-mix(in srgb, var(--color-blue--1) 35%, transparent);
+  text-underline-offset: 2px;
+}
+
+.metric-section__grid {
+  display: grid;
+  gap: 0 1.5rem;
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 700px) {
+  .metric-section {
+    padding: 5rem 0;
+  }
+
+  .metric-section__header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .metric-section__source {
+    grid-column: 1 / -1;
+  }
+
+  .metric-section__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+</style>

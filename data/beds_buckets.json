@@ -1,0 +1,38 @@
+{
+  "total": 5124,
+  "maxBeds": 3058,
+  "buckets": [
+    {
+      "key": "le25",
+      "label": "Small",
+      "label_chart": "Sm",
+      "sublabel": "25 or less beds",
+      "count": 1394,
+      "percent": 27.2
+    },
+    {
+      "key": "r26_100",
+      "label": "Medium",
+      "label_chart": "Medium",
+      "sublabel": "26 to 100 beds",
+      "count": 1408,
+      "percent": 27.5
+    },
+    {
+      "key": "r101_250",
+      "label": "Large",
+      "label_chart": "Large",
+      "sublabel": "101 to 250 beds",
+      "count": 1281,
+      "percent": 25
+    },
+    {
+      "key": "ge251",
+      "label": "Largest",
+      "label_chart": "Largest",
+      "sublabel": "251 or more beds",
+      "count": 1041,
+      "percent": 20.3
+    }
+  ]
+}

@@ -1,0 +1,356 @@
+---
+const { metric, number } = Astro.props;
+
+const score = Number(metric.score);
+const national = Number(metric.national);
+const hasScore = Number.isFinite(score);
+const metricType = metric.type || 'graphline';
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function graphPercent(value) {
+  const low = Number(metric.rangeLow ?? -3);
+  const high = Number(metric.rangeHigh ?? 3);
+  const percent = ((Number(value) - low) / (high - low)) * 100;
+  return clamp(Number.isFinite(percent) ? percent : 50, 2, 98);
+}
+
+function graphLabel(value) {
+  if (!Number.isFinite(value)) {
+    return { label: 'Not reported', token: 'missing' };
+  }
+
+  const percent = graphPercent(value);
+
+  if (percent < 16) return { label: 'Very poor', token: 'verypoor' };
+  if (percent < 33) return { label: 'Poor', token: 'poor' };
+  if (percent < 50) return { label: 'Fair', token: 'fair' };
+  if (percent < 66) return { label: 'Good', token: 'good' };
+  if (percent < 83) return { label: 'Very good', token: 'verygood' };
+  return { label: 'Excellent', token: 'excellent' };
+}
+
+function starTypes(value) {
+  const safeValue = clamp(Number(value) || 0, 0, 5);
+  const full = Math.floor(safeValue);
+  const hasHalf = safeValue - full >= 0.25 && safeValue - full < 0.75;
+  const roundedFull = safeValue - full >= 0.75 ? full + 1 : full;
+  const countFull = hasHalf ? full : roundedFull;
+
+  return Array.from({ length: 5 }, (_, index) => {
+    if (index < countFull) return 'full';
+    if (hasHalf && index === full) return 'half';
+    return 'empty';
+  });
+}
+
+const graph = {
+  hospital: graphPercent(score),
+  national: graphPercent(national),
+  label: graphLabel(score),
+};
+---
+
+<article class="metric-card" data-type={metricType} data-missing={hasScore ? 'false' : 'true'}>
+  <div class="metric-card__number">
+    <span>{number}</span>
+    {!hasScore && <em>Not reported</em>}
+  </div>
+
+  <h3>{metric.title}</h3>
+
+  {metricType === 'stars' ? (
+    <div class="stars-compare">
+      <div class="stars-compare__row" data-scope="hospital">
+        <h4>This hospital</h4>
+        <strong>{hasScore ? score : '--'}</strong>
+        <span class="stars" aria-hidden="true">
+          {starTypes(score).map((type) => <i data-type={type}></i>)}
+        </span>
+      </div>
+
+      <div class="stars-compare__row" data-scope="national">
+        <h4>National avg</h4>
+        <strong>{Number.isFinite(national) ? national : '--'}</strong>
+        <span class="stars" aria-hidden="true">
+          {starTypes(national).map((type) => <i data-type={type}></i>)}
+        </span>
+      </div>
+    </div>
+  ) : (
+    <div class="metric-line" data-subtype={metric.subtype || 'default'}>
+      <div class="metric-line__graph">
+        <span
+          class="metric-line__marker metric-line__marker--national"
+          style={`--percent:${graph.national}%`}
+          aria-hidden="true"
+        ></span>
+        {hasScore && (
+          <span
+            class="metric-line__marker metric-line__marker--hospital"
+            style={`--percent:${graph.hospital}%`}
+          >
+            <strong data-level={graph.label.token}>{graph.label.label}</strong>
+          </span>
+        )}
+      </div>
+      <div class="metric-line__labels">
+        <span>Very poor</span>
+        <span>National avg</span>
+        <span>Excellent</span>
+      </div>
+    </div>
+  )}
+
+  <p>{metric.description}</p>
+</article>
+
+<style>
+.metric-card {
+  --metric-color: var(--color-blue--4);
+
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+  padding: 2rem 0;
+  border-top: 1px dashed var(--color-blue--4);
+}
+
+.metric-card::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  border-top: 1px dashed var(--color-blue--4);
+}
+
+.metric-card[data-missing='true'] {
+  --metric-color: var(--color-red--1);
+}
+
+.metric-card__number {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.metric-card__number span {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  min-height: 2rem;
+  border-radius: 999px;
+  background: var(--metric-color);
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.metric-card__number em {
+  color: var(--metric-color);
+  font-size: 0.95rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+h3 {
+  color: var(--metric-color);
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+p {
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.stars-compare {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.stars-compare__row {
+  --pill-bg: var(--color-white);
+  --pill-text: var(--color-green--1);
+  --star-color: var(--color-green--1);
+
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 1fr) 4rem minmax(6rem, auto);
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.stars-compare__row[data-scope='national'] {
+  --pill-bg: var(--color-blue-2);
+  --pill-text: var(--color-blue--4);
+  --star-color: var(--color-blue--4);
+}
+
+h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.stars-compare strong {
+  display: inline-grid;
+  place-items: center;
+  min-height: 2rem;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.stars {
+  display: flex;
+  gap: 0.08rem;
+}
+
+.stars i {
+  width: 1rem;
+  height: 1rem;
+  background: var(--star-color);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+.stars i[data-type='full'] {
+  mask-image: url('/icons/icon-star-full.svg');
+}
+
+.stars i[data-type='half'] {
+  mask-image: url('/icons/icon-star-half.svg');
+}
+
+.stars i[data-type='empty'] {
+  mask-image: url('/icons/icon-star-empty.svg');
+}
+
+.metric-line {
+  display: grid;
+  gap: 1rem;
+  margin-block: 2.5rem 0.5rem;
+}
+
+.metric-line__graph {
+  position: relative;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-red--1) 0%,
+    var(--color-red-1) 20%,
+    var(--color-teal-2) 40%,
+    var(--color-teal-3) 60%,
+    var(--color-green-1) 80%,
+    var(--color-green--1) 100%
+  );
+}
+
+.metric-card[data-missing='true'] .metric-line__graph {
+  background: var(--color-blue-3);
+}
+
+.metric-line__marker {
+  position: absolute;
+  left: calc(var(--percent) - 0.75rem);
+}
+
+.metric-line__marker--national {
+  bottom: -1.1rem;
+  width: 0;
+  height: 0;
+  border-width: 0 0.5rem 0.5rem;
+  border-style: solid;
+  border-color: transparent transparent var(--color-blue--4);
+}
+
+.metric-line__marker--hospital {
+  top: -0.45rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.5rem solid var(--color-blue--4);
+  border-radius: 999px;
+}
+
+.metric-line__marker--hospital strong {
+  --label-bg: var(--color-blue--4);
+
+  position: absolute;
+  bottom: 2.15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.55rem;
+  background: var(--label-bg);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.metric-line__marker--hospital strong::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-width: 0.5rem 0.5rem 0;
+  border-style: solid;
+  border-color: var(--label-bg) transparent transparent;
+}
+
+strong[data-level='verypoor'],
+strong[data-level='poor'] {
+  --label-bg: var(--color-red--1);
+}
+
+strong[data-level='fair'],
+strong[data-level='good'] {
+  --label-bg: var(--color-teal--1);
+}
+
+strong[data-level='verygood'] {
+  --label-bg: var(--color-green-1);
+}
+
+strong[data-level='excellent'] {
+  --label-bg: var(--color-green--1);
+}
+
+.metric-line__labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.metric-line__labels span:nth-child(2) {
+  font-weight: 500;
+}
+
+@media (min-width: 700px) {
+  .metric-card {
+    padding: 2rem;
+  }
+
+  h3 {
+    min-height: 4rem;
+  }
+}
+</style>

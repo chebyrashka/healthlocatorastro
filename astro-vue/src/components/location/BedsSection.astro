@@ -1,0 +1,332 @@
+---
+const { beds, buckets } = Astro.props;
+
+const bedCount = Number(beds);
+const hasBeds = Number.isFinite(bedCount) && bedCount > 0;
+const bedBuckets = buckets?.buckets ?? [];
+
+function calcPercent(value) {
+  const percent = (Number(value) / 500) * 100;
+
+  if (!Number.isFinite(percent)) {
+    return 3;
+  }
+
+  return Math.min(98, Math.max(3, percent));
+}
+
+function currentRange(value) {
+  if (!hasBeds) {
+    return 'Number unknown';
+  }
+
+  if (value <= 25) return 'Small hospital';
+  if (value <= 100) return 'Medium hospital';
+  if (value <= 250) return 'Large hospital';
+  return 'Largest hospital range';
+}
+---
+
+<section class="beds-section" id="beds" data-missing={hasBeds ? 'false' : 'true'}>
+  <div class="beds-section__inner">
+    <header class="beds-section__header">
+      <div>
+        <figure>
+          <img src="/icons/icon-bed.svg" alt="" loading="lazy" />
+        </figure>
+        <p class="beds-section__eyebrow">Capacity</p>
+        <h2>Total Hospital Beds</h2>
+        <p>The number of beds per hospital is a measure of a hospital's size and capacity to treat patients.</p>
+      </div>
+      <strong>{hasBeds ? bedCount.toLocaleString('en-US') : 'Unknown'}</strong>
+    </header>
+
+    <div class="beds-section__bar" aria-label="Hospital bed size compared with national ranges">
+      {!hasBeds && (
+        <div class="beds-section__unknown">
+          <span>Number unknown</span>
+          <p>Not reported for this hospital.</p>
+        </div>
+      )}
+
+      <div class="beds-section__track">
+        {hasBeds && (
+          <span class="beds-section__marker" style={`--percent:${calcPercent(bedCount)}%`}>
+            <b>{bedCount.toLocaleString('en-US')}</b>
+          </span>
+        )}
+      </div>
+
+      <div class="beds-section__labels" aria-hidden="true">
+        <p><strong>S<span>mall</span></strong>&le;25</p>
+        <p><strong>M<span>edium</span></strong>26-100</p>
+        <p><strong>L<span>arge</span></strong>101-250</p>
+        <p><strong>L<span>argest</span></strong>251+</p>
+      </div>
+    </div>
+
+    <section class="beds-section__summary" aria-label="United States hospitals by bed size range">
+      <div>
+        <h3>{currentRange(bedCount)}</h3>
+        <p>U.S. hospitals by bed size range</p>
+      </div>
+
+      <table>
+        <tbody>
+          {bedBuckets.map((bucket) => (
+            <tr>
+              <th scope="row">{bucket.label}</th>
+              <td>{bucket.sublabel}</td>
+              <td>{Math.round(Number(bucket.percent))}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  </div>
+</section>
+
+<style>
+.beds-section {
+  padding: 3rem 0 5rem;
+  background: var(--color-blue-3);
+}
+
+.beds-section__inner {
+  display: grid;
+  gap: 1.75rem;
+  width: min(calc(100% - 2rem), 888px);
+  margin: 0 auto;
+}
+
+.beds-section__header {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.beds-section__header > div {
+  display: grid;
+  gap: 0.55rem;
+}
+
+figure {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.45rem;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.beds-section__eyebrow {
+  color: var(--color-blue--3);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: var(--color-text);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.beds-section__header p:not(.beds-section__eyebrow) {
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  font-size: 1.08rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.beds-section__header > strong {
+  align-self: center;
+  width: fit-content;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: var(--color-blue--4);
+  color: white;
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  line-height: 1;
+}
+
+.beds-section__bar {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.beds-section__unknown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.beds-section__unknown span {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-red--1);
+  color: white;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.beds-section__unknown p {
+  color: var(--color-red--1);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.beds-section__track {
+  position: relative;
+  height: 1rem;
+  margin-top: 4.5rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-green-3) 0%,
+    var(--color-green-3) 5%,
+    var(--color-green-2) 5%,
+    var(--color-green-2) 20%,
+    var(--color-green-1) 20%,
+    var(--color-green-1) 50%,
+    var(--color-green--2) 50%,
+    var(--color-green--2) 100%
+  );
+}
+
+.beds-section[data-missing='true'] .beds-section__track {
+  margin-top: 1rem;
+  opacity: 0.32;
+}
+
+.beds-section__marker {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--percent) - 1rem);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: var(--color-blue--4);
+  transform: translateY(-50%);
+}
+
+.beds-section__marker b {
+  position: absolute;
+  bottom: 2.75rem;
+  left: 50%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.55rem;
+  background: var(--color-blue--4);
+  color: white;
+  font-size: 1rem;
+  line-height: 1.25;
+  transform: translateX(-50%);
+}
+
+.beds-section__marker b::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-width: 0.5rem 0.5rem 0;
+  border-style: solid;
+  border-color: var(--color-blue--4) transparent transparent;
+  transform: translateX(-50%);
+}
+
+.beds-section__labels {
+  display: grid;
+  grid-template-columns: 5% 15% 30% 50%;
+}
+
+.beds-section__labels p {
+  color: color-mix(in srgb, var(--color-text) 80%, white);
+  font-size: 0.75rem;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.beds-section__labels strong {
+  display: block;
+  color: var(--color-blue--4);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.beds-section__labels span {
+  display: none;
+}
+
+.beds-section__summary {
+  display: grid;
+  gap: 1.25rem;
+}
+
+h3 {
+  color: var(--color-blue--4);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.beds-section__summary p {
+  margin-top: 0.25rem;
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  line-height: 1.6;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 1rem 0.35rem;
+  border-bottom: 1px solid var(--color-blue-3);
+  font-size: 0.96rem;
+  line-height: 1.35;
+  text-align: left;
+}
+
+th,
+td:last-child {
+  color: var(--color-blue--4);
+  font-weight: 800;
+}
+
+td:last-child {
+  text-align: right;
+}
+
+@media (min-width: 700px) {
+  .beds-section {
+    padding-block: 5rem;
+  }
+
+  .beds-section__header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .beds-section__labels span {
+    display: inline-block;
+  }
+
+  .beds-section__summary {
+    grid-template-columns: minmax(0, 1fr) minmax(26rem, 1.25fr);
+    align-items: start;
+  }
+}
+</style>

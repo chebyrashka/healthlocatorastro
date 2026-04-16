@@ -1,0 +1,195 @@
+---
+import ScoreRing from './ScoreRing.astro';
+
+const { location, scores = [] } = Astro.props;
+
+function scoreDisplay(score) {
+  const value = Number(score);
+
+  if (!Number.isFinite(value) || value <= 0) {
+    return '--';
+  }
+
+  return Math.round(value);
+}
+
+function scorePercent(score) {
+  const value = Number(score);
+
+  if (!Number.isFinite(value) || value <= 0) {
+    return 0;
+  }
+
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+---
+
+<section class="overall-score" id="overall">
+  <div class="overall-score__card">
+    <header class="overall-score__header">
+      <div class="overall-score__copy">
+        <p class="overall-score__eyebrow">Overall</p>
+        <h2>Overall Hospital Score</h2>
+        <p>A hospital's score when compared to all hospitals.</p>
+      </div>
+
+      <ScoreRing score={location.s_mcvi} label="Overall" />
+    </header>
+
+    <div class="overall-score__summary" aria-label="Score inputs">
+      {scores.map((item) => (
+        <a
+          class:list={[
+            'overall-score__metric',
+            item.strong && 'overall-score__metric--strong',
+          ]}
+          data-key={item.key}
+          href={item.href}
+          style={`--score:${scorePercent(item.score)}%`}
+        >
+          <span>{item.title}</span>
+          <strong>{scoreDisplay(item.score)}</strong>
+          <i aria-hidden="true"></i>
+        </a>
+      ))}
+    </div>
+
+    <p class="overall-score__note">
+      The hospital average score is based on the scores for patient experience, quality outcomes, and patient safety.
+    </p>
+  </div>
+</section>
+
+<style>
+.overall-score {
+  width: min(calc(100% - 2rem), 888px);
+  margin: 0 auto;
+  padding: 1rem 0 3.5rem;
+}
+
+.overall-score__card {
+  display: grid;
+  gap: 1.75rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 0 64px 8px rgba(0, 42, 149, 0.08);
+}
+
+.overall-score__header {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.overall-score__copy {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.overall-score__eyebrow {
+  color: var(--color-blue--3);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: var(--color-text);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+
+.overall-score__copy p:not(.overall-score__eyebrow),
+.overall-score__note {
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.overall-score__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.overall-score__metric {
+  min-width: min(100%, 9rem);
+  flex: 1 1 9rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.35rem 0.75rem;
+  align-content: start;
+  align-items: end;
+  padding: 0.25rem 0;
+}
+
+.overall-score__metric span {
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  font-size: 0.96rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.overall-score__metric strong {
+  color: var(--color-blue--4);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.overall-score__metric i {
+  grid-column: 1 / -1;
+  height: 0.35rem;
+  border-radius: 0 999px 999px 0;
+  background:
+    linear-gradient(90deg, var(--color-green--1) 0 var(--score), transparent var(--score)),
+    var(--color-blue-3);
+}
+
+.overall-score__metric--strong {
+  position: relative;
+  flex-basis: 11rem;
+  font-weight: 800;
+}
+
+.overall-score__metric--strong strong {
+  color: var(--color-green--1);
+}
+
+.overall-score__note {
+  max-width: 44rem;
+  padding-top: 0.25rem;
+  font-size: 1rem;
+}
+
+@media (min-width: 700px) {
+  .overall-score__header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .overall-score__summary {
+    flex-wrap: nowrap;
+  }
+
+  .overall-score__metric--strong {
+    padding-left: 2rem;
+  }
+
+  .overall-score__metric--strong::before {
+    content: '=';
+    position: absolute;
+    left: 0.15rem;
+    bottom: 0.45rem;
+    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: 800;
+  }
+}
+</style>

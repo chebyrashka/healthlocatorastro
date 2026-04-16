@@ -1,0 +1,108 @@
+[{
+    "footer": {
+      "section": [
+        {
+            "links": [
+                {
+                    "label": "About HealthLocator",
+                    "url": "/#about",
+                    "legacy": true
+                }
+            ]
+        },
+        {
+            "title": "Questions or feedback?",
+            "links": [
+                {
+                    "label": "info@healthlocator.org",
+                    "url": "mailto:info@healthlocator.org"
+                },
+                {
+                    "label": "FAQ for providers",
+                    "url": "/faq"
+                }
+            ]         
+        },
+        {
+            "section" : "terms",
+            "links": [
+                {
+                  "label": "Terms & Conditions",
+                  "url": "/legal/terms-of-use"
+                },
+                {
+                  "label": "Privacy Policy",
+                  "url": "/legal/privacy-policy"
+                },
+                {
+                    "label": "Notice of Discrimination",
+                    "url": "/legal/notice-of-discrimination"
+                },
+                {
+                    "label": "Accessibility Statement",
+                    "url": "/legal/accessibility-statement"
+                },
+                {
+                    "label": "Manage Cookies",
+                    "url": "#/",
+                    "id": "privacyManageCookies"
+                }
+            ]
+        },
+        {
+            "section" : "copyright",
+            "text": "© 1998-{{year}} MFMER. All rights reserved."
+        }
+      ]
+    },
+    "keypoints":  {
+        "title": "Scoring is based on three key performance areas",
+        "sections" : [
+            {
+                "icon": "chart",
+                "title": "Quality outcomes",
+                "text": "Measures hospital success at keeping patients healthy, ensuring survival, and avoiding readmission."
+            },
+            {
+                "icon": "like",
+                "title": "Patient experience",
+                "text": "Based on patient feedback about things like cleanliness, comfort and care team efficiency."
+            },
+            {
+                "icon": "safety",
+                "title": "Patient safety",
+                "text": "Tells us how well hospitals avoid preventable errors and complications such as infections and bedsores."
+            }
+       ]
+    },
+    "modal" : {
+        "about": {
+            "title": "About HealthLocator",
+            "content": "<p>When searching for the best care, hospital ranking lists are helpful, but with dozens of lists available, research can be confusing. That’s where <strong>HealthLocator</strong> comes in.</p><p>HealthLocator is a <strong>searchable database built by Mayo Clinic to provide quality ratings for more than 5,000 hospitals across the nation.</strong> This easy-to-use tool gathers findings from various publicly available sources of hospital quality data. (See <a href=\"/#where-data-comes-from\">Where does the data come from?</a>)</p><p>The information is vetted by external stakeholders, the <a href=\"https://www.cms.gov/\" target=\"_blank\">Centers for Medicare & Medicaid Services (CMS)</a> — a federal agency that works with the healthcare community to improve quality, equity, and outcomes across the nation — and HealthLocator’s own team of world-renowned data scientists. The resulting tool provides a broad view of hospital performance across several quality measurements.</p><p>Learn about our methods for measuring <a href=\"https://journals.lww.com/ajmqonline/abstract/2022/09000/a_learning_health_system_approach_to_hospital.9.aspx\" target=\"_blank\">hospital quality</a>, <a href=\"https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2836017?\" target=\"_blank\">reliable excellence</a>, and HealthLocator <a href=\"https://catalyst.nejm.org/doi/full/10.1056/CAT.25.0296\" target=\"_blank\">scoring</a>.</p>",
+            "photo": "/photos/photo-man-kissing-child.jpg"
+        },
+        "whycreated": {
+            "title": "Why was HealthLocator created?",
+            "content": "<p>When searching for the best care, hospital ranking lists are helpful, but with dozens of lists available, research can be confusing. That’s where <strong>HealthLocator</strong> comes in.</p><p>HealthLocator is a <strong>searchable database of quality and ratings for more than 5,000 hospitals across the nation.</strong> This easy-to-use tool gathers findings from various publicly available sources of hospital quality data. (See Where does the data come from?)</p><p>The information is vetted by external stakeholders, the <a href=\"/#what-is-being-scored\">Centers for Medicare & Medicaid Services (CMS)</a>, and HealthLocator’s own team of world renowned data-research scientists. The resulting tool provides a broad view of hospital performance across several quality measurements.</p><p>HealthLocator aligns with HealthLocator’s mission to always prioritize patient needs by connecting people with other quality institutions that deliver great care.</p> ",
+            "photo": "/photos/photo-man-kissing-child.jpg"
+        },
+        "what-is-being-scored": {
+            "title": "What is being scored?",
+            "content": "<p>The <strong>overall hospital score</strong> and <strong>hospital average scores</strong> shown in HealthLocator are based on the performance of each hospital across:</p><p><strong>Quality outcomes:</strong> Measures hospital success at keeping patients healthy, ensuring survival, and avoiding readmission. This score is based on 5 different areas of quality outcomes.</p><p><strong>Patient experience:</strong> Based on patient feedback about things like communication, comfort, and staff teamwork. This score is based on 6 different areas of patient experience.</p><p><strong>Patient safety:</strong> Tells us how well hospitals avoid preventable errors and complications such as infections and bedsores. This score is based on 6 different areas of patient safety.</p>",
+            "photo": "/photos/photo-pinkdata.jpg"
+        },
+        "where-data-comes-from": {
+            "title": "Where does the data come from?",
+            "content": "<p>HealthLocator references the following resources:</p><p><strong>Quality outcomes</strong> scoring is based on summary scores from the <a href=\"https://www.medicare.gov/care-compare/resources/hospital/overall-star-rating\" target=\"_blank\">Centers for Medicare & Medicaid Services (CMS) Overall Hospital Star Rating</a> to distinguish excellence in quality. CMS is a federal agency that works with the healthcare community to improve quality, equity, and outcomes across the nation.</p><p><strong>Patient experience</strong> scoring is based on summary scores from the <a href=\"https://www.cms.gov/data-research/research/consumer-assessment-healthcare-providers-systems/hospital-cahps-hcahps\" target=\"_blank\">Hospital Consumer Assessment of Healthcare Providers and Systems (HCAHPS)</a> survey to distinguish excellence in patient experience. The HCAHPS survey is a national, standardized, publicly reported survey of patients’ perspectives of hospital care.</p><p><strong>Patient safety</strong> scoring is based on six publicly reported <a href=\"https://data.cms.gov/provider-data/dataset/ynj2-r877\" target=\"_blank\">hospital patient safety</a> and <a href=\"https://data.cms.gov/provider-data/dataset/77hc-ibv8\" target=\"_blank\">associated infection</a> metrics. This data allows us to emphasize the importance of patient safety.</p>",
+            "photo": "/photos/photo-woman-with-phone.jpg"
+        },
+        "how-are-hospitals-scored": {
+            "title": "How are hospitals scored?",
+            "content": "<p>Hospital scoring happens in three steps.</p><h2>Step 1: Hospital ratings in key areas</h2><p>Each hospital is rated from 0 (lowest) to 99 (highest) in three key areas:</p><ul><li>Quality care: How well it keeps patients healthy</li><li>Patient experience:  How patients feel about their care</li><li>Patient safety: How well it protects patients from harm</li></ul><p>For example, a hospital may receive ratings of 75 for quality care, 60 for patient experience, and 90 for patient safety.</p><h2>Step 2: Hospital average score</h2><p>These ratings are used to calculate the hospital average score. Using the numbers above, the hospital average score would be 75.</p><h2>Step 3: Hospital overall score</h2><p>The average score of 75 is then converted to a 0–99 scale (0=worst; 99=best) based on the highest scoring hospital. This gives us a hospital overall score of 93. That means the hospital is doing better than 93 out of 100 hospitals.</p><p>Learn about our methods for measuring <a href=\"https://journals.lww.com/ajmqonline/abstract/2022/09000/a_learning_health_system_approach_to_hospital.9.aspx\" target=\"_blank\">hospital quality</a>, <a href=\"https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2836017?\" target=\"_blank\">reliable excellence</a>, and HealthLocator <a href=\"https://catalyst.nejm.org/doi/full/10.1056/CAT.25.0296\" target=\"_blank\">scoring</a>.</p>",
+            "photo": "/photos/photo-man-drawing-on-windows.jpg"
+        }
+    },
+    "announcement": {
+
+    }
+}]

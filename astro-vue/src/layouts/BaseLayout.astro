@@ -1,0 +1,42 @@
+---
+import '../styles/global.scss';
+
+import AnnouncementBar from '../components/global/AnnouncementBar.vue';
+import FooterNav from '../components/global/FooterNav.vue';
+import GlobalHeader from '../components/global/GlobalHeader.vue';
+import { getSiteContent } from '../lib/site-data.js';
+
+const {
+  title = 'HealthLocator',
+  description = 'HealthLocator migration preview built with Astro and Vue.',
+  showHeader = true,
+  headerLocation = 'inner',
+} = Astro.props;
+
+const content = await getSiteContent();
+const announcement = content?.announcement?.message ?? '';
+const footerSections = content?.footer?.section ?? [];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content={description} name="description" />
+    <title>{title}</title>
+    <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+    <script is:inline>
+      window._analyticsQueue = window._analyticsQueue || [];
+    </script>
+  </head>
+  <body>
+    {announcement && <AnnouncementBar message={announcement} />}
+    {showHeader && <GlobalHeader location={headerLocation} />}
+    <div class="page-shell">
+      <slot />
+    </div>
+    <FooterNav sections={footerSections} />
+  </body>
+</html>

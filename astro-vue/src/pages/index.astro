@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/global/Container.vue';
+import HeroSection from '../components/global/HeroSection.vue';
+import InfoCard from '../components/global/InfoCard.vue';
+import KeyPoints from '../components/global/KeyPoints.vue';
+import SearchShell from '../components/search/SearchShell.vue';
+import SpecialtyList from '../components/global/SpecialtyList.vue';
+import StateList from '../components/global/StateList.vue';
+import StateMap from '../components/global/StateMap.vue';
+import { getProcedures, getSiteContent, getStates } from '../lib/site-data.js';
+
+const procedures = await getProcedures();
+const siteContent = await getSiteContent();
+const states = await getStates();
+
+const categories = procedures?.[0]?.categories ?? [];
+const specialties = procedures?.[1]?.specialties ?? [];
+const keypoints = siteContent?.keypoints ?? {};
+
+const homeCards = [
+  {
+    title: 'Always up to date',
+    description: 'Scores are refreshed every quarter, so ratings are always up to date.',
+    note: 'Updated on March 6, 2026',
+    photo: '/photos/photo-mri.jpg',
+    href: '#',
+    linkLabel: 'Where does the data come from?',
+  },
+  {
+    title: 'Nationwide data',
+    description: 'Compare hospital quality scores across all 50 states.',
+    video: '/video/video-datamap.mp4',
+    colorOverlay: '#01AA37',
+    href: '#',
+    linkLabel: 'What is being scored?',
+  },
+  {
+    title: 'Fair and accurate',
+    description: 'Public hospital quality data is vetted by experts to ensure fair comparisons.',
+    photo: '/photos/photo-looking-at-tablet.jpg',
+    href: '#',
+    linkLabel: 'How are hospitals scored?',
+  },
+];
+---
+
+<BaseLayout
+  description="Compare quality scores for more than 5,000 hospitals across the U.S."
+  showHeader={false}
+  title="HealthLocator: Unbiased U.S. hospital rankings from real data"
+>
+  <div class="layout-home">
+    <HeroSection
+      heading="Find the best hospital for your needs"
+      photo="photo-hero-december"
+      subheading="Compare quality scores for more than 5,000 hospitals across the U.S."
+    />
+
+    <Container class="home-search-wrap" inset size="ch">
+      <SearchShell client:load initialSearchType="city" specialties={specialties} />
+    </Container>
+
+    <main>
+      <Container size="m">
+        <section class="section-introtext">
+          <p>
+            When you are facing a health issue, finding the right hospital is a priority.
+            <strong>HealthLocator</strong> helps you easily search for and compare hospital
+            quality scores. Built by Mayo Clinic and powered by independent, publicly reported
+            data, so you can choose the best care with confidence.
+          </p>
+        </section>
+
+        <KeyPoints content={keypoints} />
+      </Container>
+
+      <Container noPadding size="xg">
+        <section class="section-about">
+          {homeCards.map((card) => <InfoCard {...card} />)}
+        </section>
+      </Container>
+
+      <Container size="xg">
+        <SpecialtyList categories={categories} specialties={specialties} />
+      </Container>
+
+      <Container noPadding size="xg">
+        <StateMap states={states} />
+      </Container>
+
+      <Container>
+        <StateList client:load states={states} />
+      </Container>
+    </main>
+  </div>
+</BaseLayout>

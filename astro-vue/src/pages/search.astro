@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/global/Container.vue';
+import ResultsExperience from '../components/results/ResultsExperience.vue';
+import SearchShell from '../components/search/SearchShell.vue';
+import {
+  buildSearchSummary,
+  deriveInitialSearchState,
+  resolveSearchContext,
+  searchLocations,
+} from '../lib/search.js';
+import { getProcedures } from '../lib/site-data.js';
+
+const procedures = await getProcedures();
+const specialties = procedures?.[1]?.specialties ?? [];
+
+const by = Astro.url.searchParams.get('by') || 'city';
+const city = Astro.url.searchParams.get('city') || '';
+const state = Astro.url.searchParams.get('state') || '';
+const zip = Astro.url.searchParams.get('zip') || '';
+const hospital = Astro.url.searchParams.get('hospital') || '';
+const specialty = Astro.url.searchParams.get('specialty') || '';
+const initialSearch = deriveInitialSearchState(Astro.url.searchParams);
+const routeContext = await resolveSearchContext({
+  by,
+  city,
+  state,
+  zip,
+  hospital,
+  specialty,
+});
+
+const [summary, results] = await Promise.all([
+  buildSearchSummary({ by, city, state, zip, hospital, specialty }),
+  searchLocations(routeContext),
+]);
+---
+
+<BaseLayout description={summary.description} title={summary.title}>
+  <Container size="xg">
+    <div class="results-page">
+      <div class="results-hero">
+        <span class="results-meta">Search hospitals</span>
+        <h1>{summary.title}</h1>
+        <p>{summary.description}</p>
+      </div>
+
+      <SearchShell
+        client:load
+        initialKeyword={initialSearch.keyword}
+        initialSearchType={initialSearch.searchType}
+        initialSpecialty={initialSearch.specialty}
+        specialties={specialties}
+      />
+
+      <ResultsExperience
+        client:load
+        initialLocations={results}
+        procedures={procedures}
+        routeContext={routeContext}
+      />
+    </div>
+  </Container>
+</BaseLayout>

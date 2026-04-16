@@ -1,0 +1,22 @@
+{
+  "name": "healthlocator-astro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@astrojs/netlify": "latest",
+    "@astrojs/vue": "^6.0.1",
+    "astro": "^6.1.6",
+    "pinia": "^3.0.4",
+    "sass": "^1.99.0",
+    "vue": "^3.5.32",
+    "zipcodes": "^8.0.0"
+  }
+}

@@ -1,0 +1,77 @@
+---
+const text =
+  'To ensure that hospitals were scored fairly, we began by analyzing each hospital across 19 metrics for <strong>patient experience, quality outcomes,</strong> and <strong>patient safety.</strong> Then, we went a step further and tested 100,000 different ways to measure hospital quality. Hospitals that consistently produced good results received the Reliable Excellence Indicator. <strong>Only around 250 hospitals receive this distinction.</strong> You can rely on those hospitals to provide high-quality excellent care, again and again.';
+---
+
+<aside class="reliable-excellence" aria-labelledby="reliable-excellence-title">
+  <h2 id="reliable-excellence-title">Reliable Excellence Indicator</h2>
+  <p set:html={text}></p>
+</aside>
+
+<style>
+.reliable-excellence {
+  position: relative;
+  width: min(calc(100% - 2rem), 888px);
+  margin: 0 auto 3rem;
+  padding: clamp(2rem, 4vw, 2.75rem);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(118, 224, 204, 0.25), transparent 38%),
+    var(--color-blue-2);
+}
+
+.reliable-excellence::before,
+.reliable-excellence::after {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  left: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+}
+
+.reliable-excellence::before {
+  background: var(--color-green-1);
+}
+
+.reliable-excellence::after {
+  background: white;
+  mask-image: url('/icons/icon-award.svg');
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: 1.5rem;
+}
+
+h2 {
+  margin-top: 0.5rem;
+  color: var(--color-blue--4);
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+p {
+  margin-top: 0.75rem;
+  max-width: 64rem;
+  color: color-mix(in srgb, var(--color-text) 84%, white);
+  font-size: clamp(1rem, 2vw, 1.08rem);
+  line-height: 1.65;
+}
+
+p :global(strong) {
+  color: var(--color-blue--4);
+  font-weight: 800;
+}
+
+@media (min-width: 700px) {
+  .reliable-excellence::before,
+  .reliable-excellence::after {
+    left: -1.5rem;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}
+</style>

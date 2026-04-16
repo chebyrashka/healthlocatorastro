@@ -1,0 +1,180 @@
+---
+const { location, mapsUrl } = Astro.props;
+
+const phoneHref = location.phone ? `tel:${location.phone}` : null;
+---
+
+<section class="location-hero">
+  <nav class="location-hero__breadcrumb" aria-label="Breadcrumb">
+    <a href="/search">Search results</a>
+  </nav>
+
+  <div class="location-hero__card">
+    <div class="location-hero__copy">
+      <p class="location-hero__eyebrow">Hospital score details</p>
+      <h1>{location.title}</h1>
+      <address>
+        {location.address}<br />
+        {location.city}, {location.state} {location.zip}
+      </address>
+      {phoneHref && <a class="location-hero__phone" href={phoneHref}>{location.phone}</a>}
+    </div>
+
+    <nav class="location-hero__actions" aria-label={`${location.title} contact links`}>
+      {phoneHref && (
+        <a href={phoneHref} data-kind="call">
+          <span aria-hidden="true"></span>
+          Call
+        </a>
+      )}
+      <a href={mapsUrl} target="_blank" rel="noreferrer" data-kind="directions">
+        <span aria-hidden="true"></span>
+        Directions
+      </a>
+    </nav>
+  </div>
+</section>
+
+<style>
+.location-hero {
+  display: grid;
+  gap: 1rem;
+  width: min(calc(100% - 2rem), 888px);
+  margin: 0 auto;
+  padding: 1.5rem 0 0.75rem;
+}
+
+.location-hero__breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-blue--3);
+  font-size: 0.96rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.location-hero__breadcrumb a::before {
+  content: '';
+  width: 0.65rem;
+  height: 0.65rem;
+  border-bottom: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.location-hero__card {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(0.5rem, 2vw, 1rem) 0 1rem;
+}
+
+.location-hero__copy {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.location-hero__eyebrow {
+  width: fit-content;
+  color: var(--color-blue--1);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 22ch;
+  color: var(--color-blue--4);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+address,
+.location-hero__phone {
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  font-size: clamp(1rem, 2vw, 1.16rem);
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.location-hero__phone {
+  width: fit-content;
+  color: var(--color-action);
+  font-weight: 800;
+}
+
+.location-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.location-hero__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--color-action);
+  border-radius: 999px;
+  color: var(--color-action);
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.3;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background 180ms ease;
+}
+
+.location-hero__actions a:hover {
+  border-color: var(--color-green--1);
+  color: var(--color-green--1);
+  background: color-mix(in srgb, var(--color-green--1) 8%, transparent);
+}
+
+.location-hero__actions a:focus-visible {
+  border-color: var(--color-focus);
+  color: var(--color-focus);
+  background-color: var(--color-focus-background);
+  box-shadow: inset 0 0 0 2px var(--color-focus);
+  outline: none;
+}
+
+.location-hero__actions span {
+  width: 1rem;
+  height: 1rem;
+  background: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+[data-kind='call'] span {
+  mask-image: var(--icon-phone);
+}
+
+[data-kind='directions'] span {
+  mask-image: var(--icon-location);
+}
+
+@media (min-width: 700px) {
+  .location-hero {
+    padding-top: 2rem;
+  }
+
+  .location-hero__card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .location-hero__actions {
+    justify-content: flex-end;
+  }
+}
+</style>
