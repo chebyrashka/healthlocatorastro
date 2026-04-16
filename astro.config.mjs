@@ -3,12 +3,12 @@ import vue from '@astrojs/vue';
 import netlify from '@astrojs/netlify';
 import { fileURLToPath } from 'node:url';
 
-const rootDir = new URL('../', import.meta.url);
+const rootDir = new URL('./', import.meta.url);
 
 export default defineConfig({
   output: 'server',
   adapter: netlify(),
-  publicDir: '../public',
+  publicDir: './public',
   integrations: [
     vue({
       appEntrypoint: '/src/pages/_app.ts',

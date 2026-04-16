@@ -2,3 +2,7 @@ node_modules/
 dist/
 .astro/
 .DS_Store
+data/cities_*.json
+data/locations-revert.json
+data/locations_*.json
+data/locations_merged.json
